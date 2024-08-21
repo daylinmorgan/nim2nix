@@ -6,29 +6,50 @@
   };
 
   outputs =
-    { nixpkgs, ... }:
+    { nixpkgs, self, ... }:
     let
       inherit (nixpkgs.lib) genAttrs;
       forAllSystems =
-        f:
-        genAttrs [ "x86_64-linux" "x86_64-darwin" "aarch64-linux" "aarch64-darwin"]
-          (system: f nixpkgs.legacyPackages.${system});
+        fn:
+        genAttrs
+          [
+            "x86_64-linux"
+            "x86_64-darwin"
+            "aarch64-linux"
+            "aarch64-darwin"
+          ]
+          (
+            system:
+            fn (
+              import nixpkgs {
+                inherit system;
+                overlays = [ self.overlays.default ];
+              }
+            )
+          );
     in
     {
-
-      packages = forAllSystems (pkgs: rec {
-        buildNimPackage = pkgs.callPackage ./pkgs/build-nim-package.nix {};
-        nimlangserver = pkgs.callPackage ./pkgs/nimlangserver/package.nix {inherit buildNimPackage;};
-      });
-
-      devShells = forAllSystems (pkgs: {
-        default = pkgs.mkShell {
-          buildInputs = with pkgs; [
-            zk
-            hugo
-            nodePackages.pnpm
-          ];
+      overlays = {
+        default = final: _prev: {
+          buildNimblePackage = final.callPackage ./pkgs/build-nimble-package.nix { };
         };
+      };
+      packages = forAllSystems (pkgs: rec {
+        # buildNimblePackage = pkgs.callPackage ./pkgs/build-nimble-package.nix {};
+        # simple package to test functionality
+        fugitive = pkgs.callPackage ./pkgs/fugitive/package.nix { };
+        default = fugitive;
+
+        # failing because of the compiler
+        # nimlangserver = pkgs.callPackage ./pkgs/nimlangserver/package.nix {inherit buildNimblePackage;};
       });
+
+      # devShells = forAllSystems (pkgs: {
+      #   default = pkgs.mkShell {
+      #     buildInputs = with pkgs; [
+      #     ];
+      #   };
+      # });
+      formatter = forAllSystems (pkgs: pkgs.nixfmt-rfc-style);
     };
 }
