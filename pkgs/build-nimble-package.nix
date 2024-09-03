@@ -49,6 +49,7 @@ let
           rm nimbledeps/bin/"$(readlink "$f")"
         done
 
+        rm -f nimbledeps/packages_*.json
         runHook postBuild
       '';
 
