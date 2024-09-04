@@ -57,14 +57,11 @@ let
       runHook preBuild
       mkdir -p $out
       cp -r nimbledeps $out/nimbledeps
-      cp nimble.paths $out/nimble.paths
       runHook postBuild
     '';
 
-    # dontFixup = true;
     outputHashAlgo = "sha256";
     outputHashMode = "recursive";
-    # outputHash = "sha256-xqEGilIo4J/WbwEFn1ZvirN5AvdZP7HjoOAXYf6k16s=";
     outputHash = nimbleDepsHash;
   };
 in
@@ -77,6 +74,7 @@ stdenv.mkDerivation (
       nimble
       nim_builder
     ] ++ nativeBuildInputs;
+
     configurePhase = ''
       runHook preConfigure
       export NIX_NIM_BUILD_INPUTS=''${pkgsHostTarget[@]} $NIX_NIM_BUILD_INPUTS
