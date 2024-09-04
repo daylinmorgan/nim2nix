@@ -48,16 +48,19 @@ let
           rm nimbledeps/bin/"$(readlink "$f")"
         done
 
+        rm -rf nimbledeps/bin nimbledeps/pkgs2/**/*.json
         runHook postBuild
       '';
 
     installPhase = ''
-      runHook preBuild
+      runHook preInstall
       mkdir -p $out/nimbledeps
       cp -r nimbledeps/pkgs2 $out/nimbledeps/pkgs2
-      runHook postBuild
+      ls -R $out
+      runHook postInstall
     '';
 
+    doCheck = false;
     outputHashAlgo = "sha256";
     outputHashMode = "recursive";
     outputHash = nimbleDepsHash;
@@ -114,5 +117,4 @@ stdenv.mkDerivation (
     meta = {
       platforms = nim.meta.platforms;
     } // meta;
-  }
-)
+  })
