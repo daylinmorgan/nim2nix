@@ -15,7 +15,7 @@ buildNimblePackage rec {
   };
   
   nimbleLockFile = ./nimble.lock;
-  nimbleDepsHash = "sha256-mc7Cap4BUcwhFRNmHWKd1RybPzfPHzBvVaYzb+4iF8Q=";
+  nimbleDepsHash = "sha256-D5jyZ6Ja4N9XcJFfu3nifRSAAjQBfv/TFuMforAbY5A=";
 
   buildInputs = [ openssl ];
   doCheck = false;

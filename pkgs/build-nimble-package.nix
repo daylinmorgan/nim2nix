@@ -42,21 +42,19 @@ let
       )
       + ''
         nimble install -l --depsOnly --debug --passNim:"--nimcache:$TMPDIR"
-        nimble setup -l
 
         # TODO: get nimble to stop building things...
         for f in nimbledeps/bin/*; do
           rm nimbledeps/bin/"$(readlink "$f")"
         done
 
-        rm -f nimbledeps/packages_*.json
         runHook postBuild
       '';
 
     installPhase = ''
       runHook preBuild
-      mkdir -p $out
-      cp -r nimbledeps $out/nimbledeps
+      mkdir -p $out/nimbledeps
+      cp -r nimbledeps/pkgs2 $out/nimbledeps/pkgs2
       runHook postBuild
     '';
 
