@@ -1,10 +1,11 @@
 {
   stdenv,
-  git,
-  cacert,
-
   nim,
   nim_builder,
+
+  # nimbledeps dependencies
+  git,
+  cacert,
   nimble,
 }:
 {
@@ -67,7 +68,7 @@ let
   };
 in
 
-stdenv.mkDerivation (
+stdenv.mkDerivation (finalAttrs:
   args
   // {
     nativeBuildInputs = [
