@@ -1,5 +1,5 @@
 # nim2nix todo's
 
+- [ ] add switch to filter `nim` from nimble.lock since building the compiler is unavoidable
 
-reading: https://bmcgee.ie/posts/2023/02/nix-what-are-fixed-output-derivations-and-why-use-them/
 <!-- generated with <3 by daylinmorgan/todo -->
