@@ -8,7 +8,6 @@
   nimble,
 }:
 {
-  name ? "${args'.pname}-${args'.version}",
   nativeBuildInputs ? [ ],
   passthru ? { },
   nimbleDepsHash ? "",
@@ -19,7 +18,7 @@
 let
   args = removeAttrs args' [ "nimbleDepsHash" ];
   nimbleDeps = stdenv.mkDerivation {
-    name = "${name}-nimbledeps";
+    name = "nimbledeps";
     inherit (args) src;
 
     buildInputs = [
