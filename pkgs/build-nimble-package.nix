@@ -40,7 +40,7 @@ let
           ""
       )
       + ''
-        nimble install -l --depsOnly --debug --passNim:"--nimcache:$TMPDIR"
+        nimble install -l --depsOnly --debug --passNim:"--nimcache:$TMPDIR" --useSystemNim
 
         # TODO: get nimble to stop building things...
         for f in nimbledeps/bin/*; do
@@ -55,11 +55,12 @@ let
       runHook preInstall
       mkdir -p $out/nimbledeps
       cp -r nimbledeps/pkgs2 $out/nimbledeps/pkgs2
-      ls -R $out
       runHook postInstall
     '';
 
     doCheck = false;
+    dontPatchShebangs = true;
+
     outputHashAlgo = "sha256";
     outputHashMode = "recursive";
     outputHash = nimbleDepsHash;

@@ -13,7 +13,7 @@ buildNimblePackage rec {
     rev = "v${version}";
     hash = "sha256-W06L/DNEpDmO69s318rPlElKD9vDXnx9O5ZFOEa3kyU=";
   };
-  
+
   nimbleLockFile = ./nimble.lock;
   nimbleDepsHash = "sha256-opj+KSd5REsTN2sSckPuuK+wN3c028Kja9UujbrWHwY=";
 
