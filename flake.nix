@@ -41,15 +41,17 @@
         default = fugitive;
 
         # failing because of the compiler
-        # nimlangserver = pkgs.callPackage ./pkgs/nimlangserver/package.nix {inherit buildNimblePackage;};
+        nimlangserver = pkgs.callPackage ./pkgs/nimlangserver/package.nix { };
       });
 
-      # devShells = forAllSystems (pkgs: {
-      #   default = pkgs.mkShell {
-      #     buildInputs = with pkgs; [
-      #     ];
-      #   };
-      # });
+      devShells = forAllSystems (pkgs: {
+        default = pkgs.mkShell {
+          buildInputs = with pkgs; [
+            nim
+            nimble
+          ];
+        };
+      });
       formatter = forAllSystems (pkgs: pkgs.nixfmt-rfc-style);
     };
 }
