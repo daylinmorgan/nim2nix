@@ -1,0 +1,25 @@
+From 1a18ace2e81a916f58e25a86e7eb93a7aa768785 Mon Sep 17 00:00:00 2001
+From: Daylin Morgan <me@dayl.in>
+Date: Tue, 14 Oct 2025 13:03:25 +0000
+Subject: [PATCH] no compilation of binaries
+
+---
+ src/nimble.nim | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/src/nimble.nim b/src/nimble.nim
+index e678ce2..d2c2972 100644
+--- a/src/nimble.nim
++++ b/src/nimble.nim
+@@ -564,6 +564,8 @@ proc installFromDir(dir: string, requestedVer: VersionRange, options: Options,
+         raise nimbleError("Pre-hook prevented further execution.")
+ 
+   var pkgInfo = getPkgInfo(dir, options)
++  # set bins to nil to prevent compiling them
++  pkgInfo.bin = initTable[string, string]()
+   # Set the flag that the package is not in develop mode before saving it to the
+   # reverse dependencies.
+   pkgInfo.isLink = false
+-- 
+2.51.0
+

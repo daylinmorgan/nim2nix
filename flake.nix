@@ -31,6 +31,7 @@
       overlays = {
         default = final: _prev: {
           buildNimblePackage = final.callPackage ./build-nimble-package.nix { };
+          nimble-no-bins = final.callPackage ./pkgs/nimble/package.nix { };
         };
       };
 

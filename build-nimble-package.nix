@@ -6,7 +6,7 @@
   # nimbledeps dependencies
   git,
   cacert,
-  nimble,
+  nimble-no-bins,
 }:
 {
   nativeBuildInputs ? [ ],
@@ -23,7 +23,7 @@ let
     inherit (args) src;
 
     buildInputs = [
-      nimble
+      nimble-no-bins
       git
       cacert
     ];
@@ -42,11 +42,6 @@ let
       )
       + ''
         nimble install -l --depsOnly --debug --passNim:"--nimcache:$TMPDIR" --useSystemNim
-
-        # TODO: get nimble to stop building things...
-        for f in nimbledeps/bin/*; do
-          rm nimbledeps/bin/"$(readlink "$f")"
-        done
 
         rm -rf nimbledeps/bin nimbledeps/pkgs2/**/*.json
         runHook postBuild
@@ -73,7 +68,7 @@ stdenv.mkDerivation (finalAttrs:
   // {
     nativeBuildInputs = [
       nim
-      nimble
+      nimble-no-bins
       nim_builder
     ] ++ nativeBuildInputs;
 
