@@ -32,8 +32,13 @@
         default = final: _prev: {
           buildNimblePackage = final.callPackage ./build-nimble-package.nix { };
           nimble-no-bins = final.callPackage ./pkgs/nimble/package.nix { };
+          nim-atlas = final.callPackage ./pkgs/atlas/package.nix {};
         };
       };
+
+      packages = forAllSystems (pkgs: {
+        atlas = pkgs.nim-atlas;
+      });
 
       checks = forAllSystems (pkgs: {
         fugitive = pkgs.callPackage ./pkgs/fugitive/package.nix { };
@@ -45,6 +50,7 @@
           buildInputs = with pkgs; [
             nim
             nimble
+            nim-atlas
           ];
         };
       });
