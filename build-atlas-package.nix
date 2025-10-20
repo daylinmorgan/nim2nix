@@ -50,7 +50,7 @@ let
           ""
       )
       + ''
-        atlas install --verbosity:trace
+        atlas rep --verbosity:trace
         rm $out/deps/_nimbles $outs/deps/_packages -rf
         find deps -name ".git" -type d -exec rm -rf {} +
       '';
