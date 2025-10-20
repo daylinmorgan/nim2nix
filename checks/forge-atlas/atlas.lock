@@ -1,0 +1,47 @@
+{
+  "items": {
+    "hwylterm.daylinmorgan.github.com": {
+      "dir": "$deps/hwylterm.daylinmorgan.github.com",
+      "url": "https://github.com/daylinmorgan/hwylterm",
+      "commit": "8c3f459e4f92bb9f95a7ad5f0fbd510e31c822f0",
+      "version": ""
+    },
+    "usu-nim.usu-dev.github.com": {
+      "dir": "$deps/usu-nim.usu-dev.github.com",
+      "url": "https://github.com/usu-dev/usu-nim",
+      "commit": "31c527f893635373a999b28456cc2699be73a030",
+      "version": ""
+    }
+  },
+  "nimcfg": [
+    "############# begin Atlas config section ##########",
+    "--noNimblePath",
+    "--path:\"deps/hwylterm.daylinmorgan.github.com/src\"",
+    "--path:\"deps/usu-nim.usu-dev.github.com/src\"",
+    "############# end Atlas config section   ##########",
+    ""
+  ],
+  "nimbleFile": {
+    "filename": "forge.nimble",
+    "content": [
+      "version       = \"2025.1010\"",
+      "author        = \"Daylin Morgan\"",
+      "description   = \"build nim binaries for all the platforms\"",
+      "license       = \"MIT\"",
+      "srcDir        = \"src\"",
+      "bin           = @[\"forge\"]",
+      "binDir        = \"bin\"",
+      "",
+      "",
+      "requires \"nim >= 2.0.0\"",
+      "requires \"https://github.com/daylinmorgan/hwylterm#8c3f459\"",
+      "requires \"https://github.com/usu-dev/usu-nim\"",
+      ""
+    ]
+  },
+  "hostOS": "linux",
+  "hostCPU": "amd64",
+  "nimVersion": "2.2.4",
+  "gccVersion": "14.3.0",
+  "clangVersion": ""
+}

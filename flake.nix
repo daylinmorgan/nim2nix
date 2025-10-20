@@ -31,6 +31,7 @@
       overlays = {
         default = final: _prev: {
           buildNimblePackage = final.callPackage ./build-nimble-package.nix { };
+          buildAtlasPackage = final.callPackage ./build-atlas-package.nix {};
           nimble-no-bins = final.callPackage ./pkgs/nimble/package.nix { };
           nim-atlas = final.callPackage ./pkgs/atlas/package.nix {};
         };
@@ -38,11 +39,15 @@
 
       packages = forAllSystems (pkgs: {
         atlas = pkgs.nim-atlas;
+        nimble = pkgs.nimble-no-bins;
       });
 
       checks = forAllSystems (pkgs: {
-        fugitive = pkgs.callPackage ./pkgs/fugitive/package.nix { };
-        nimlangserver = pkgs.callPackage ./pkgs/nimlangserver/package.nix { };
+        nimlangserver-nimble = pkgs.callPackage ./checks/nimlangserver-nimble { };
+        # TODO:
+        # nimlangserver-atlas = pkgs.callPackage ./checks/nimlangserver-atlas { };
+        forge-atlas = pkgs.callPackage ./checks/forge-atlas {};
+        forge-nimble = pkgs.callPackage ./checks/forge-nimble {};
       });
 
       devShells = forAllSystems (pkgs: {
