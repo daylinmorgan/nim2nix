@@ -1,0 +1,19 @@
+name: Run Nix Flake Checks
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  crawl:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Install Lix
+        uses: canidae-solutions/lix-quick-install-action@v3
+
+      - name: Run Checks
+        run: nix flake check
