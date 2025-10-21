@@ -31,9 +31,9 @@
       overlays = {
         default = final: _prev: {
           buildNimblePackage = final.callPackage ./build-nimble-package.nix { };
-          buildAtlasPackage = final.callPackage ./build-atlas-package.nix {};
+          buildAtlasPackage = final.callPackage ./build-atlas-package.nix { };
           nimble-no-bins = final.callPackage ./pkgs/nimble/package.nix { };
-          nim-atlas = final.callPackage ./pkgs/atlas/package.nix {};
+          nim-atlas = final.callPackage ./pkgs/atlas/package.nix { };
         };
       };
 
@@ -42,13 +42,26 @@
         nimble = pkgs.nimble-no-bins;
       });
 
-      checks = forAllSystems (pkgs: {
-        nimlangserver-nimble = pkgs.callPackage ./checks/nimlangserver-nimble { };
-        # TODO:
-        # nimlangserver-atlas = pkgs.callPackage ./checks/nimlangserver-atlas { };
-        forge-atlas = pkgs.callPackage ./checks/forge-atlas {};
-        forge-nimble = pkgs.callPackage ./checks/forge-nimble {};
-      });
+      checks = forAllSystems (
+        pkgs:
+        let
+          individualChecks = {
+            nimlangserver-nimble = pkgs.callPackage ./checks/nimlangserver-nimble { };
+            # nimlangserver-atlas = pkgs.callPackage ./checks/nimlangserver-atlas { };
+            forge-atlas = pkgs.callPackage ./checks/forge-atlas { };
+            forge-nimble = pkgs.callPackage ./checks/forge-nimble { };
+          };
+        in
+        individualChecks
+        // {
+          all = pkgs.linkFarm "nim2nix-all-checks" (
+            pkgs.lib.mapAttrsToList (name: drv: {
+              name = name;
+              path = drv;
+            }) individualChecks
+          );
+        }
+      );
 
       devShells = forAllSystems (pkgs: {
         default = pkgs.mkShell {
