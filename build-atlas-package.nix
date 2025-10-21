@@ -51,7 +51,7 @@ let
       )
       + ''
         atlas rep --verbosity:trace
-        rm $out/deps/_nimbles $outs/deps/_packages -rf
+        rm deps/_nimbles deps/_packages deps/atlas.config atlas.cache.json -rf
         find deps -name ".git" -type d -exec rm -rf {} +
       '';
 
