@@ -17,9 +17,14 @@ buildNimPackage (
     };
     lockFile = ./lock.json;
     buildInputs = [ openssl ];
-    prePatch = ''
-      rm config.nims
-    ''; # never trust a .nims file
+    # prePatch = ''
+    #   rm config.nims
+    #   '';
+    postPatch = ''
+      substituteInPlace src/atlas.nim \
+        --replace-fail 'staticExec("git log -n 1 --format=%H")' '"${final.src.rev}"'
+    '';
+
     doCheck = false; # tests will clone repos
     meta = final.src.meta // {
       description = "Nim package cloner";
