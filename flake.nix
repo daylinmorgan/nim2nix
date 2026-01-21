@@ -30,8 +30,8 @@
     {
       overlays = {
         default = final: _prev: {
-          buildNimblePackage = final.callPackage ./build-nimble-package.nix { };
-          buildAtlasPackage = final.callPackage ./build-atlas-package.nix { };
+          buildNimblePackage = final.callPackage ./nix/build-nimble-package.nix { };
+          buildAtlasPackage = final.callPackage ./nix/build-atlas-package.nix { };
           nimble-no-bins = final.callPackage ./pkgs/nimble/package.nix { };
           nim-atlas = final.callPackage ./pkgs/atlas/package.nix { };
         };
