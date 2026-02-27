@@ -85,6 +85,7 @@ stdenv.mkDerivation (finalAttrs:
       export NIX_NIM_BUILD_INPUTS=''${pkgsHostTarget[@]} $NIX_NIM_BUILD_INPUTS
       nim_builder --phase:configure
 
+      rm -rf deps
       cp -r ${atlasDeps}/deps deps
       cp -r ${atlasDeps}/nim.cfg nim.cfg
 
