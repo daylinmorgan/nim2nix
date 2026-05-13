@@ -8,19 +8,15 @@
 buildNimPackage (
   final: prev: {
     pname = "atlas";
-    version = "0.10.1";
+    version = "0.14.5";
     src = fetchFromGitHub {
       owner = "nim-lang";
       repo = "atlas";
       rev = final.version;
-      hash = "sha256-WUnPvwsZ0IiDU3WhOQBUf2zT47jUFkZ0Kxn4oxWqdSU=";
+      hash = "sha256-VT8hVKWRtWWSigaErdGS20tYdBD3f4WP755OphH9DjA=";
     };
     lockFile = ./lock.json;
     buildInputs = [ openssl ];
-    postPatch = ''
-      substituteInPlace src/atlas.nim \
-        --replace-fail 'staticExec("git log -n 1 --format=%H")' '"${final.src.rev}"'
-    '';
 
     doCheck = false; # tests will clone repos
     meta = final.src.meta // {
