@@ -53,7 +53,6 @@ let
         atlas rep --verbosity:trace
         rm deps/.cache deps/_nimbles deps/_packages deps/atlas.config atlas.cache.json -rf
         find deps -name ".git" -type d -exec rm -rf {} +
-        ls deps/
       '';
 
     installPhase = ''
