@@ -114,7 +114,7 @@ stdenv.mkDerivation (finalAttrs:
       '';
 
     passthru = passthru // {
-      inherit atlasDepsHash;
+      inherit atlasDepsHash atlasDeps;
     };
 
     meta = {
