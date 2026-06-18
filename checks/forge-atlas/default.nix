@@ -15,7 +15,7 @@ buildAtlasPackage rec {
   };
 
   atlasLockFile = ./atlas.lock;
-  atlasDepsHash = "sha256-MEaWSOchpoqj/dxNhZaZdYUbfCwloogdemgewW47yyc=";
+  atlasDepsHash = "sha256-eg9NJa5bESQ6W2Sjbd+KrO6Rx8K2unm9jXYF98Qq19Q=";
 
   buildInputs = [ openssl ];
   doCheck = false;
